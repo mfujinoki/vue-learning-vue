@@ -1,12 +1,12 @@
 <template>
-  <div> 
-    <h2>{{ title }}</h2> 
-    <add-item-component @add="addItem" :items="items"></add-item-component> 
-    <items-component :items="items"></items-component> 
-    <div class="footer"> 
-      <hr/> 
-      <change-title-component v-model="title"></change-title-component> 
-    </div> 
+  <div>
+    <h2>{{ title }}</h2>
+    <add-item-component @add="addItem" :items="items"></add-item-component>
+    <items-component :items="items"></items-component>
+    <div class="footer">
+      <hr/>
+      <change-title-component :value="title" @changeTitle="onChangeTitle"></change-title-component>
+    </div>
   </div>
 </template>
 
@@ -23,21 +23,24 @@ export default {
   },
   data: function () {
     return {
-      items: [{ text: 'Bananas', checked: true },
-              { text: 'Apples', checked: false}], 
+      items: [{text: 'Bananas', checked: true},
+        {text: 'Apples', checked: false}],
       title: 'My Shopping List',
-      newItem: '' 
+      newItem: ''
     }
   },
   methods: {
-      addItem (text) {
-          this.items.push({
-              text: text,
-              checked: false
-          });
-      }
+    addItem (text) {
+      this.items.push({
+        text: text,
+        checked: false
+      })
+    },
+    onChangeTitle (text) {
+      this.$emit('changeTitle', this.id, text)
+    }
   },
-  props: ['title','items']
+  props: ['id', 'title', 'items']
 }
 </script>
 
@@ -47,4 +50,3 @@ export default {
     margin-top: 40vh;
   }
 </style>
-
