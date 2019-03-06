@@ -25,21 +25,20 @@ import ControlsComponent from './components/ControlsComponent'
 import CountdownComponent from './components/CountdownComponent'
 import KittensComponent from './components/KittensComponent'
 import StateTitleComponent from './components/StateTitleComponent'
+import store from './vuex/store'
+import { mapGetters } from 'vuex'
 
-window.data= {
-  kittens: true,
-  isworking: true
-}
 export default {
-  data () {
-    return window.data
-  },
+  store,
   components: {
     ControlsComponent,
     CountdownComponent,
     KittensComponent,
     StateTitleComponent
-  }
+  },
+  computed: mapGetters({
+    isworking: 'isWorking'
+  })
 }
 </script>
 

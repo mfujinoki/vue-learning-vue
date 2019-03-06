@@ -1,15 +1,13 @@
 <template>
     <div>
-        <h3>{{ isworking ? workingtitle : restingtitle | lowercase }}</h3>
-        <p>
-        {{ Math.pow(5, 2) }}
-        </p>
+        <h3>{{ isworking ? workingtitle : restingtitle }}</h3>
     </div>
 </template>
 <style scoped>
 
 </style>
 <script>
+import { mapGetters } from 'vuex'
 export default {
     data () {
         return {
@@ -17,6 +15,8 @@ export default {
             restingtitle: 'Rest!'
         }
     },
-    props: ['isworking']
+    computed: mapGetters ({
+        'isworking': 'isWorking'
+    })
 }
 </script>

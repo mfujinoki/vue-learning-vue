@@ -1,11 +1,11 @@
 <template>
   <div>
     <h2>{{ title }}</h2>
-    <add-item-component @add="addItem" :items="items"></add-item-component>
+    <add-item-component @add="addItem"></add-item-component>
     <items-component :items="items"></items-component>
     <div class="footer">
       <hr/>
-      <change-title-component :value="title" @changeTitle="onChangeTitle"></change-title-component>
+      <change-title-component :title="title" :id="id"></change-title-component>
     </div>
   </div>
 </template>
@@ -21,23 +21,12 @@ export default {
     ItemsComponent,
     ChangeTitleComponent
   },
-  data: function () {
-    return {
-      items: [{text: 'Bananas', checked: true},
-        {text: 'Apples', checked: false}],
-      title: 'My Shopping List',
-      newItem: ''
-    }
-  },
   methods: {
     addItem (text) {
       this.items.push({
         text: text,
         checked: false
       })
-    },
-    onChangeTitle (text) {
-      this.$emit('changeTitle', this.id, text)
     }
   },
   props: ['id', 'title', 'items']
