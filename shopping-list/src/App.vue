@@ -4,6 +4,11 @@
       <li :class="i===0 ? 'active' : ''" v-for="(list, i) in shoppinglists" role="presentation" :key="i">
         <shopping-list-title-component :id="list.id" :title="list.title"></shopping-list-title-component>
       </li>
+      <li>
+        <a href="#" @click="addShoppingList">
+          <i class="glyphicon glyphicon-plus-sign"></i>
+        </a>
+      </li>
     </ul>
     <div class="tab-content">
       <div :class="i===0 ? 'active' : ''" v-for="(list, i) in shoppinglists" :key="i" class="tab-pane" role="tabpanel" :id="list.id">
@@ -17,7 +22,8 @@
 import ShoppingListComponent from './components/ShoppingListComponent'
 import ShoppingListTitleComponent from './components/ShoppingListTitleComponent'
 import store from './vuex/store'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import _ from 'underscore'
 
 export default {
   store,
@@ -27,7 +33,22 @@ export default {
   },
   computed: mapGetters({
     shoppinglists: 'getLists'
-  })
+  }),
+  methods: _.extend({},
+    mapActions(['populateShoppingLists', 'createShoppingList']),
+    {
+      addShoppingList() {
+        let list = {
+          title: 'New Shopping List',
+          items: []
+        }
+        this.createShoppingList(list)
+      }
+    }
+  ),
+  mounted () {
+    this.populateShoppingLists()
+  }
 }
 </script>
 
